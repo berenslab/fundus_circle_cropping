@@ -27,7 +27,7 @@ Download some example data of healthy fundus images from https://www5.cs.fau.de/
 ```bash
 bash download_data/download.sh
 ```
-This will create a datafolder `data/images` to save the images and will create an image identity file `data/ids.lst`` with list of the file names.
+This will create a datafolder `data/images` to save the images and will create an image identity file `data/ids.lst` with list of the file names.
 
 To crop the downloaded fundus images, run the example script [crop.py](crop.py) that expects a configuration [basic_example.yaml](configs/basic_example.yaml) and runs over the downloaded data.
 ```python
