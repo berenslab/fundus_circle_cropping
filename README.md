@@ -25,7 +25,7 @@ pip install -e .
 # Basic example
 Download some example data of healthy fundus images from https://www5.cs.fau.de/research/data/fundus-images/ with a bash script
 ```bash
-bash download_data/download_data.sh
+bash download_data/download.sh
 ```
 This will create a datafolder `data/images` to save the images and will create an image identity file `data/ids.lst`` with list of the file names.
 
