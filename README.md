@@ -37,4 +37,4 @@ python crop.py -c ./configs/basic_example.yaml
 Preprocessed images will be saved in `data/images_cropped` and the corresponding circular masks in `data/masks`.
 
 # Note
-If you run the code on other retinal fundus datasets, adjust the `root_folder` in the [config file](configs/basic_example.yaml) provide a text file of image names. The `preprocessing parameters` were optimized with the [kaggle-dr-dataset](https://www.kaggle.com/c/diabetic-retinopathy-detection/data) and may need to be adjusted for other datasets.
+If you run the code on other retinal fundus datasets, adjust the `root_folder` in the [config file](configs/basic_example.yaml) and provide a text file with image names. The `preprocessing parameters` were optimized with the [kaggle-dr-dataset](https://www.kaggle.com/c/diabetic-retinopathy-detection/data) and may need to be adjusted for other datasets.
