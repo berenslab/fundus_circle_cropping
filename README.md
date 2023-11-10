@@ -1,9 +1,7 @@
 # Overview
-Fundus images are processed by
-(1) finding circular mask by least-squares expectation-maximization fitting of a circular shape to image edges, and 
-(2) tightly cropping the image around the found circle.
+Fundus images are processed by (1) finding a circular mask with least-squares expectation-maximization fitting of a circle to the image edges, and (2) cropping the image tightly around the found circle.
 
-This way, all images are equally centered, some background pixels are removed, and a boolean mask of the extracted circle is saved.
+With this preprocessing method, all images are equally centered, some background pixels are removed, and a boolean mask of the extracted circle is stored.
 
 
 |   original   |   cropped  | mask |
@@ -27,14 +25,14 @@ Download some example data of healthy fundus images from https://www5.cs.fau.de/
 ```bash
 bash download_data/download.sh
 ```
-This will create a datafolder `data/images` to save the images and will create an image identity file `data/ids.lst` with list of the file names.
+This will create a `data/images` folder to store the images and an image identity file `data/ids.lst` with a list of filenames.
 
-To crop the downloaded fundus images, run the example script [crop.py](crop.py) that expects a configuration [basic_example.yaml](configs/basic_example.yaml) and runs over the downloaded data.
+To crop the downloaded fundus images, run the sample script [crop.py](crop.py), which expects a configuration [basic_example.yaml](configs/basic_example.yaml) and runs over the downloaded data.
 ```python
 python crop.py -c ./configs/basic_example.yaml
 ```
 
-Preprocessed images will be saved in `data/images_cropped` and the corresponding circular masks in `data/masks`.
+The preprocessed images are stored in `data/images_cropped` and the corresponding circular masks in `data/masks`.
 
 # Note
 If you run the code on other retinal fundus datasets, adjust the `root_folder` in the [config file](configs/basic_example.yaml) and provide a text file with image names. The `preprocessing parameters` were optimized with the [kaggle-dr-dataset](https://www.kaggle.com/c/diabetic-retinopathy-detection/data) and may need to be adjusted for other datasets.
