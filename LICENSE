@@ -1,4 +1,4 @@
-Fundus circle cropping: python package to extract a circluar mask from fundus images and how to tightly crop fundus images around the mask.
+Fundus circle cropping: Python package to extract a circle mask from fundus images and crop fundus images tightly around the mask.
 
 Copyright (C) 2023 Berens Lab @ University of Tübingen
 
