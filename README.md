@@ -6,7 +6,7 @@ Fundus images are processed by
 This way, all images are equally centered, some background pixels are removed, and a boolean mask of the extracted circle is saved.
 
 
-|   original   |   processed  | mask |
+|   original   |   cropped  | mask |
 |------------|------------|------------|
 |<img src="./example_images/images/01_h.jpg" height="150">|<img src="./example_images/images_cropped/01_h.png" width="150">|<img src="./example_images/masks/01_h.png" width="150">|
 |<img src="./example_images/images/02_h.jpg" height="150">|<img src="./example_images/images_cropped/02_h.png" width="150">|<img src="./example_images/masks/02_h.png" width="150">|
@@ -34,7 +34,7 @@ To crop the downloaded fundus images, run the example script [crop.py](crop.py) 
 python crop.py -c ./configs/basic_example.yaml
 ```
 
-Preprocessed images will be saved in `data/images_cropped` and the corresponding circular masks in `data/masks``.
+Preprocessed images will be saved in `data/images_cropped` and the corresponding circular masks in `data/masks`.
 
 # Note
 If you run the code on other retinal fundus datasets, adjust the `root_folder` in the [config file](configs/basic_example.yaml) provide a text file of image names. The `preprocessing parameters` were optimized with the [kaggle-dr-dataset](https://www.kaggle.com/c/diabetic-retinopathy-detection/data) and may need to be adjusted for other datasets.
