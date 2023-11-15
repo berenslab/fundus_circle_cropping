@@ -42,10 +42,9 @@ If you run the code on other retinal fundus datasets, adjust the `root_folder` i
 # Cite 
 If you use this software, please cite it as below.
 ```
-@software{mueller_fundus_cropping_2023,
+@software{mueller_fundus_circle_cropping_2023,
   author = {Mueller, Sarah and Heidrich, Holger and Koch, Lisa M. and Berens, Philipp},
   doi = {10.5281/zenodo.10137935},
-  month = {11},
   title = {fundus circle cropping},
   url = {https://github.com/berenslab/fundus_circle_cropping},
   version = {0.1.0},

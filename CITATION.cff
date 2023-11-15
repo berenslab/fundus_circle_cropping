@@ -10,7 +10,7 @@ authors:
 - family-names: "Berens"
   given-names: "Philipp"
 title: "fundus circle cropping"
-version: 2.0.4
+version: 0.1.0
 doi: 10.5281/zenodo.10137935
 date-released: 2023-11-115
 url: "https://github.com/berenslab/fundus_circle_cropping"
