@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/717013278.svg)](https://zenodo.org/doi/10.5281/zenodo.10137934)
+
 # Overview
 Fundus images are processed by (1) finding a circular mask with least-squares expectation-maximization fitting of a circle to the image edges, and (2) cropping the image tightly around the found circle.
 
