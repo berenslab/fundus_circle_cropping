@@ -1,7 +1,7 @@
 cff-version: 0.1.0
 message: "If you use this software, please cite it as below."
 authors:
-- family-names: "M{\"u}ller"
+- family-names: "Mueller"
   given-names: "Sarah"
 - family-names: "Heidrich"
   given-names: "Holger"
