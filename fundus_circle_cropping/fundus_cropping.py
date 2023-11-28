@@ -9,6 +9,8 @@ import cv2
 
 from fundus_circle_cropping.circle_em import circle_em
 
+import ray
+
 def get_mask(ratios: List[float], target_resolution: int = 1024):
     """Get mask from radius ratios.
 
@@ -54,6 +56,8 @@ def square_padding(im: np.ndarray, add_pad: int = 100) -> np.ndarray:
     y_pad = (dim_larger - dim_y) // 2 + add_pad
     return np.pad(im, ((y_pad, y_pad), (x_pad, x_pad), (0, 0)))
 
+
+@ray.remote 
 def fundus_image(
     x: np.ndarray,
     x_id: str,
