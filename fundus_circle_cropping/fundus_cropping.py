@@ -104,6 +104,12 @@ def fundus_image(
     """
     failure = False
 
+    is_RGB = (len(x.shape) == 3)
+
+    # simple hack to check for single-channel images: FA, ICGA, etc...
+    if not is_RGB:
+        x = np.asarray(PIL.Image.fromarray(x).convert(mode='RGB'))
+
     # Pad image to square.
     x_square_padded = square_padding(x)
 
@@ -186,6 +192,11 @@ def fundus_image(
     # Remove little rectangles on the edges of fundus images (cast them also as black background pixels).
     if remove_rectangles:
         masked_img[~mask] = 0.0
+
+    # convert back to single channel, 0-1 range
+    if not is_RGB:
+        # masked_img = PIL.Image.fromarray(masked_img).convert(model='L') #.convert(mode='F')
+        masked_img = masked_img[:,:,0] # np.asarray(masked_img, dtype=np.float32) # / 255
 
     PIL.Image.fromarray((masked_img * 255).astype(np.uint8)).save(
         osp.join(image_folder, f"{x_id}.{file_extension}")

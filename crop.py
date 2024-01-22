@@ -151,7 +151,7 @@ if __name__ == "__main__":
             x = np.array(
                 Image.open(osp.join(data_folder, f"{id}.{cfg['file_extension_data_in']}"))
             )
-            ratios, failure = fundus_cropping.fundus_image(
+            ratios, failure = fundus_cropping.fundus_image.remote(
                 x=x,
                 x_id=id,
                 image_folder=osp.join(cfg["root_folder"], cfg["image_folder"]),
