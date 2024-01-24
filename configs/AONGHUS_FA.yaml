@@ -1,10 +1,10 @@
 # Folders/data structure.
-root_folder: ../../AONGHUS/icga/  # root folder of image data
-ids_file: ../../AONGHUS/icga/ids.lst  # image identity file, list of image file names w/o file extension (e.g. jpg, png)
+root_folder: ../../AONGHUS/fa/  # root folder of image data
+ids_file: ../../AONGHUS/fa/ids.lst  # image identity file, list of image file names w/o file extension (e.g. jpg, png)
 data_folder: raw
 file_extension_data_in: png
 
-image_folder: icga_224 # folder to save preprocessed images
+image_folder: fa_224 # folder to save preprocessed images
 mask_folder: masks  # folder to save circle masks
 file_extension_data_out: png  # avoid image compression as with jpeg
 minimal_save: False  # if True only saves non-background pixels and ratios to reconstruct image masks 
@@ -20,4 +20,4 @@ fit_largest_contour: True  # if True only fit circle to the largest contour, hel
 
 
 parallel_processing: True
-num_workers_reverse: 8 # 4 # all but 4 cpus via "os.cpu_count() - 4"
+num_workers_reverse: 16 # 4 # all but 4 cpus via "os.cpu_count() - 4"
