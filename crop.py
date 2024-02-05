@@ -8,10 +8,6 @@ from PIL import Image
 
 from fundus_circle_cropping import fundus_cropping, utils
 
-# import multiprocessing
-# from joblib import Parallel, delayed
-# from concurrent.futures import  ProcessPoolExecutor, wait, as_completed
-
 import ray
 
 parser = argparse.ArgumentParser()
@@ -75,76 +71,8 @@ if __name__ == "__main__":
         
         ray.shutdown()
         assert not ray.is_initialized()
-        
-        
-        ##### with Multiprocessing package
-        # results = Parallel(n_jobs=num_workers)(delayed(fundus_cropping.fundus_image)(x=np.array(Image.open(osp.join(data_folder, f"{x_id}.{cfg['file_extension_data_in']}"))),
-        #                                                                              x_id=x_id,
-        #                                                                              image_folder=osp.join(cfg["root_folder"], cfg["image_folder"]), 
-        #                                                                              file_extension=cfg["file_extension_data_out"],
-        #                                                                              mask_folder=osp.join(cfg["root_folder"], cfg["mask_folder"]),
-        #                                                                              resize_shape=cfg["resize_shape"],
-        #                                                                              resize_canny_edge=cfg["resize_canny_edge"],
-        #                                                                              sigma_scale=cfg["sigma_scale"],
-        #                                                                              circle_fit_steps=cfg["circle_fit_steps"],
-        #                                                                              λ=cfg["λ"],
-        #                                                                              remove_rectangles=cfg["remove_rectangles"],
-        #                                                                              minimal_save=cfg["minimal_save"]
-        #                                                                             ) for x_id in list_files
-        #                                       )
-        # for result_idx, result in enumerate(results):
-        #     if result[1]: # failure
-        #         failures.append(list_files[result_idx])
-        #     if cfg["minimal_save"]:
-        #         id_to_ratios_mask[list_files[result_idx]] = result[0]
-        
-        
-#         #### with PoolExecutors
-#         # Execute workers
-#         executor = ProcessPoolExecutor(num_workers)
-        
-#         futures = [executor.submit(fundus_cropping.fundus_image(x=np.array(Image.open(osp.join(data_folder, f"{x_id}.{cfg['file_extension_data_in']}"))),
-#                                                                 x_id=x_id,
-#                                                                 image_folder=osp.join(cfg["root_folder"], cfg["image_folder"]),
-#                                                                 file_extension=cfg["file_extension_data_out"],
-#                                                                 mask_folder=osp.join(cfg["root_folder"], cfg["mask_folder"]),
-#                                                                 resize_shape=cfg["resize_shape"],
-#                                                                 resize_canny_edge=cfg["resize_canny_edge"],
-#                                                                 sigma_scale=cfg["sigma_scale"],
-#                                                                 circle_fit_steps=cfg["circle_fit_steps"],
-#                                                                 λ=cfg["λ"],
-#                                                                 remove_rectangles=cfg["remove_rectangles"],
-#                                                                 minimal_save=cfg["minimal_save"]
-#                                                                )
-#                                   ) for x_id in list_files
-#                   ]
-        
-#         # Wait for all workers to finish
-#         wait(futures)
-#         # Merge all results
-#         outputs = [f.result() for f in futures]
-#         # Process outputs
-#         for out_idx, output in enumerate(outputs):
-#             if output[1]: # failure
-#                 failures.append(list_files[out_idx])
-#             if cfg["minimal_save"]:
-#                 id_to_ratios_mask[list_files[out_idx]] = output[0]
-        
-        
-#         # # iterate over all submitted tasks and get results as they are available
-#         # for future_idx, future in enumerate(as_completed(futures)):
-#         #     # get the result for the next completed task
-#         #     result = future.result() # blocks
-#         #     if result[1]: # failure
-#         #         failures.append(list_files[future_idx])
-#         #     if cfg["minimal_save"]:
-#         #         id_to_ratios_mask[list_files[future_idx]] = result[0]
-        
-#         # shutdown the process pool
-#         executor.shutdown()
     
     else:
-        
         for id in list_files:
             print(f"Crop and save image mask of {id}.\n")
             # Load image.
