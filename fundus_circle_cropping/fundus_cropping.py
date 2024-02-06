@@ -9,6 +9,8 @@ import cv2
 
 from fundus_circle_cropping.circle_em import circle_em
 
+import ray
+
 def get_mask(ratios: List[float], target_resolution: int = 1024):
     """Get mask from radius ratios.
 
@@ -54,6 +56,8 @@ def square_padding(im: np.ndarray, add_pad: int = 100) -> np.ndarray:
     y_pad = (dim_larger - dim_y) // 2 + add_pad
     return np.pad(im, ((y_pad, y_pad), (x_pad, x_pad), (0, 0)))
 
+
+@ray.remote 
 def fundus_image(
     x: np.ndarray,
     x_id: str,
@@ -99,6 +103,12 @@ def fundus_image(
         If image could not be preprocessed (failure case).
     """
     failure = False
+
+    is_RGB = (len(x.shape) == 3)
+
+    # simple hack to check for single-channel images: FA, ICGA, etc...
+    if not is_RGB:
+        x = np.asarray(PIL.Image.fromarray(x).convert(mode='RGB'))
 
     # Pad image to square.
     x_square_padded = square_padding(x)
@@ -182,6 +192,11 @@ def fundus_image(
     # Remove little rectangles on the edges of fundus images (cast them also as black background pixels).
     if remove_rectangles:
         masked_img[~mask] = 0.0
+
+    # convert back to single channel, 0-1 range
+    if not is_RGB:
+        # masked_img = PIL.Image.fromarray(masked_img).convert(model='L') #.convert(mode='F')
+        masked_img = masked_img[:,:,0] # np.asarray(masked_img, dtype=np.float32) # / 255
 
     PIL.Image.fromarray((masked_img * 255).astype(np.uint8)).save(
         osp.join(image_folder, f"{x_id}.{file_extension}")
