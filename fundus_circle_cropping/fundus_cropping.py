@@ -2,14 +2,13 @@ import math
 import os.path as osp
 from typing import List, Optional
 
-import numpy as np
-import PIL
-from skimage import feature, transform
 import cv2
+import numpy as np
+from PIL import Image
+from skimage import feature, transform
 
 from fundus_circle_cropping.circle_em import circle_em
 
-import ray
 
 def get_mask(ratios: List[float], target_resolution: int = 1024):
     """Get mask from radius ratios.
@@ -57,7 +56,6 @@ def square_padding(im: np.ndarray, add_pad: int = 100) -> np.ndarray:
     return np.pad(im, ((y_pad, y_pad), (x_pad, x_pad), (0, 0)))
 
 
-@ray.remote 
 def fundus_image(
     x: np.ndarray,
     x_id: str,
@@ -104,11 +102,11 @@ def fundus_image(
     """
     failure = False
 
-    is_RGB = (len(x.shape) == 3)
+    is_RGB = len(x.shape) == 3
 
     # simple hack to check for single-channel images: FA, ICGA, etc...
     if not is_RGB:
-        x = np.asarray(PIL.Image.fromarray(x).convert(mode='RGB'))
+        x = np.asarray(Image.fromarray(x).convert(mode="RGB"))
 
     # Pad image to square.
     x_square_padded = square_padding(x)
@@ -117,7 +115,7 @@ def fundus_image(
     height, _, _ = x_square_padded.shape
     # Resize image for canny edge detection (scales bad with image size).
     x_resized = np.array(
-        PIL.Image.fromarray(x_square_padded).resize((resize_canny_edge,) * 2)
+        Image.fromarray(x_square_padded).resize((resize_canny_edge,) * 2)
     )
     x_gray = x_resized.mean(axis=-1)
     edges = feature.canny(
@@ -132,7 +130,7 @@ def fundus_image(
         print(f"No edges found, skip image with id {x_id}.\n")
         return None, True
     # Restore original image size.
-    edges_resized = np.array(PIL.Image.fromarray(edges).resize((height,) * 2))
+    edges_resized = np.array(Image.fromarray(edges).resize((height,) * 2))
 
     if fit_largest_contour:
         contours, _ = cv2.findContours(
@@ -195,10 +193,12 @@ def fundus_image(
 
     # convert back to single channel, 0-1 range
     if not is_RGB:
-        # masked_img = PIL.Image.fromarray(masked_img).convert(model='L') #.convert(mode='F')
-        masked_img = masked_img[:,:,0] # np.asarray(masked_img, dtype=np.float32) # / 255
+        # masked_img = Image.fromarray(masked_img).convert(model='L') #.convert(mode='F')
+        masked_img = masked_img[
+            :, :, 0
+        ]  # np.asarray(masked_img, dtype=np.float32) # / 255
 
-    PIL.Image.fromarray((masked_img * 255).astype(np.uint8)).save(
+    Image.fromarray((masked_img * 255).astype(np.uint8)).save(
         osp.join(image_folder, f"{x_id}.{file_extension}")
     )
 
@@ -208,7 +208,7 @@ def fundus_image(
         return ratios, failure
 
     else:
-        PIL.Image.fromarray((mask * 255).astype(np.uint8)).save(
+        Image.fromarray((mask * 255).astype(np.uint8)).save(
             osp.join(mask_folder, f"{x_id}.{file_extension}")
         )
         return None, failure
