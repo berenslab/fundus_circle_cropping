@@ -37,8 +37,8 @@ python crop.py -c ./configs/basic_example.yaml
 
 The preprocessed images are stored in `data/images_cropped` and the corresponding circular masks in `data/masks`.
 
-# Parellization with ray
-Since the image preprocessing of images can be run independently, we also support code parallelization with [ray](https://docs.ray.io/en/latest/ray-overview/installation.html). We have one example configuration file [ray_eyample.yaml](configs/ray_example.yaml) on how to run that.
+# Parallel processing with ray
+Since the image preprocessing of images can be run independently, we also support code parallel processing with [ray](https://docs.ray.io/en/latest/ray-overview/installation.html). We have one example configuration file [ray_eyample.yaml](configs/ray_example.yaml) on how to run that.
 ```python
 python crop.py -c ./configs/ray_example.yaml
 ```
