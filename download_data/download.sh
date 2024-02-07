@@ -2,7 +2,7 @@
 
 mkdir -p data/images                        
 cd data/images                           
-curl -sS https://www5.cs.fau.de/fileadmin/research/datasets/fundus-images/healthy.zip > images.zip 
+curl -sS https://www5.cs.fau.de/fileadmin/research/datasets/fundus-images/healthy.zip > images.zip  # curl needs to be installed on your system
 unzip images.zip                                  
 rm images.zip
 

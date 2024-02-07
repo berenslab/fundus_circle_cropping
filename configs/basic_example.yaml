@@ -17,3 +17,6 @@ sigma_scale: 50  # scale for sigma parameter of canny edge detection
 circle_fit_steps: 100  # number of steps for circle fitting
 λ: 0.01  # decay constant of exponential function
 fit_largest_contour: False  # if True only fit circle to the largest contour, helpful with noise like text on the image
+
+parallel_processing: False
+num_workers_reverse: 

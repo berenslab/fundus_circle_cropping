@@ -25,5 +25,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=requirements,
-    python_requires='>=3.6',
+    python_requires='>=3.6, <3.12',  # ray is not working with python python >3.11 (https://github.com/ray-project/ray/issues/40211)
 )

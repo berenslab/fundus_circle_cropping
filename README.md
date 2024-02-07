@@ -15,7 +15,8 @@ With this preprocessing method, all images are equally centered, some background
 
 
 # Installation
-Install directly from source
+Setup a python environment with a python version between `>=3.6` and `<3.12`.
+Then, install all the other dependencies directly from source
 ```python
 git clone https://github.com/berenslab/fundus_circle_cropping
 cd fundus_circle_cropping
@@ -36,6 +37,12 @@ python crop.py -c ./configs/basic_example.yaml
 
 The preprocessed images are stored in `data/images_cropped` and the corresponding circular masks in `data/masks`.
 
+# Parellization with ray
+Since the image preprocessing of images can be run independently, we also support code parallelization with [ray](https://docs.ray.io/en/latest/ray-overview/installation.html). We have one example configuration file [ray_eyample.yaml](configs/ray_example.yaml) on how to run that.
+```python
+python crop.py -c ./configs/ray_example.yaml
+```
+
 # Note
 If you run the code on other retinal fundus datasets, adjust the `root_folder` in the [config file](configs/basic_example.yaml) and provide a text file with image names. The `preprocessing parameters` were optimized with the [kaggle-dr-dataset](https://www.kaggle.com/c/diabetic-retinopathy-detection/data) and may need to be adjusted for other datasets.
 
@@ -47,7 +54,7 @@ If you use this software, please cite it as below.
   doi = {10.5281/zenodo.10137935},
   title = {fundus circle cropping},
   url = {https://github.com/berenslab/fundus_circle_cropping},
-  version = {0.1.0},
+  version = {0.2.0},
   year = {2023}
 }
 ```
